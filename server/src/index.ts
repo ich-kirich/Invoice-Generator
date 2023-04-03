@@ -5,6 +5,7 @@ import { StatusCodes } from "http-status-codes";
 import ApiError from "./error/apiError";
 import ErrorHandling from "./middleware/errorhandlingmiddleware";
 import router from "./routes/router";
+import initDb from "../models/initDb";
 
 const app = express();
 app.use(cors());
@@ -14,6 +15,7 @@ app.use(ErrorHandling);
 
 const startServer = async () => {
   try {
+    await initDb();
     app.listen(config.get("PORT"), () =>
       console.log(`Running on port ${config.get("PORT")}`),
     );

@@ -1,8 +1,8 @@
 import { NextFunction, Response, Request } from "express";
 import { StatusCodes } from "http-status-codes";
 import ApiError from "../error/apiError";
+
 class InvoiceControllers {
-  
   async getInvoice(req: Request, res: Response, next: NextFunction) {
     try {
       return res.json("1");

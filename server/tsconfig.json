@@ -6,10 +6,8 @@
     "esModuleInterop": true,
     "outDir": "dist",
     "baseUrl": ".",
-	"moduleResolution": "node"
+    "moduleResolution": "node"
   },
-  "include": [
-    "src"
-, "models/statistic.ts", "models/initDb.ts"  ],
+  "include": ["src", "models/work.ts", "models/initDb.ts", "models/invoice.ts"],
   "exclude": ["node_modules"]
 }
