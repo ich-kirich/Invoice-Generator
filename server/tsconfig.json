@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "baseUrl": ".",
+	"moduleResolution": "node"
+  },
+  "include": [
+    "src"
+, "models/statistic.ts", "models/initDb.ts"  ],
+  "exclude": ["node_modules"]
+}
