@@ -1,10 +1,9 @@
 import { NextFunction, Response, Request } from "express";
 import { StatusCodes } from "http-status-codes";
-import htmlPdfNode from "html-pdf-node";
 import Invoice from "../../models/invoice";
-import createInfInvoice from "../services/invoiceService";
+import { createInfInvoice, createPdf } from "../services/invoiceService";
 import ApiError from "../error/apiError";
-import { ERROR_NOT_FOUND } from "../libs/constants";
+import ERROR_NOT_FOUND from "../libs/constants";
 import Work from "../../models/work";
 
 class InvoiceControllers {
@@ -36,45 +35,19 @@ class InvoiceControllers {
         include: [{ model: Work, as: "works" }],
       });
       if (invoice) {
-        return res.json(invoice);
+        try {
+          const pdfFile = await createPdf(invoice);
+          res.setHeader("Content-Type", "application/pdf");
+          res.setHeader(
+            "Content-Disposition",
+            "attachment; filename=invoice.pdf",
+          );
+          return res.send(pdfFile);
+        } catch (e) {
+          return next(new ApiError(StatusCodes.BAD_REQUEST, e.message));
+        }
       }
       return next(new ApiError(StatusCodes.NOT_FOUND, ERROR_NOT_FOUND));
-    } catch (e) {
-      return next(new ApiError(StatusCodes.BAD_REQUEST, e.message));
-    }
-  }
-
-  async getPDF(req: Request, res: Response, next: NextFunction) {
-    try {
-      const options = { format: "A4" };
-      const file = {
-        content: `<html>
-      <head>
-        <style>
-          h1 {
-            color: red;
-          }
-        </style>
-      </head>
-      <body>
-        <h1>Hello, World!</h1>
-      </body>
-    </html>`,
-      };
-      const generatePdfPromise = () =>
-        new Promise<Buffer>((resolve, reject) => {
-          htmlPdfNode.generatePdf(file, options, (err, pdfBuffer) => {
-            if (err) {
-              reject(err);
-            } else {
-              resolve(pdfBuffer);
-            }
-          });
-        });
-      const pdfBuffer = await generatePdfPromise();
-      res.setHeader("Content-Type", "application/pdf");
-      res.setHeader("Content-Disposition", "attachment; filename=file.pdf");
-      return res.send(pdfBuffer);
     } catch (e) {
       return next(new ApiError(StatusCodes.BAD_REQUEST, e.message));
     }

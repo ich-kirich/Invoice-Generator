@@ -5,6 +5,5 @@ const invoiceRouter = Router();
 
 invoiceRouter.post("/", InvoiceControllers.createInvoice);
 invoiceRouter.get("/", InvoiceControllers.getInvoice);
-invoiceRouter.get("/pdf", InvoiceControllers.getPDF);
 
 export default invoiceRouter;

@@ -1,6 +1,8 @@
+import htmlPdfNode from "html-pdf-node";
 import { IWork } from "../types/types";
 import Invoice from "../../models/invoice";
 import Work from "../../models/work";
+import { createPage } from "../htmlPage/htmlPage";
 
 async function createInfo(info: IWork[], id: number) {
   if (info) {
@@ -45,4 +47,18 @@ export async function createInfInvoice(
   return invoice;
 }
 
-export default createInfInvoice;
+export async function createPdf(invoice: Invoice) {
+  const options = { format: "A4" };
+  const htmlFile = createPage();
+  const generatePdfPromise = () =>
+    new Promise<Buffer>((resolve, reject) => {
+      htmlPdfNode.generatePdf(htmlFile, options, (err, pdfBuffer) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(pdfBuffer);
+        }
+      });
+    });
+  return generatePdfPromise();
+}
