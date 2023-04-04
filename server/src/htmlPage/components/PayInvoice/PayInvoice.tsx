@@ -16,10 +16,10 @@ function PayInvoice(props: IWorksProps) {
           padding: 5,
         }}
       >
-        <Typography variant="h6" component="h1">
+        <Typography variant="h6" component="p">
           New Invoice
         </Typography>
-        <Typography variant="h6" component="h1">
+        <Typography variant="h6" component="p">
           {totalCount(works)}$ due on {createDate(date)}
         </Typography>
         <Box

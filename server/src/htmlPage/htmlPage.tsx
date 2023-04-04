@@ -27,7 +27,6 @@ function App(props: IPageProps) {
         `}
         </style>
       </head>
-
       <body>
         <StyledEngineProvider injectFirst>
           <Header />
