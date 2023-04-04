@@ -49,7 +49,7 @@ export async function createInfInvoice(
 
 export async function createPdf(invoice: Invoice) {
   const options = { format: "A4" };
-  const htmlFile = createPage();
+  const htmlFile = createPage(invoice);
   const generatePdfPromise = () =>
     new Promise<Buffer>((resolve, reject) => {
       htmlPdfNode.generatePdf(htmlFile, options, (err, pdfBuffer) => {

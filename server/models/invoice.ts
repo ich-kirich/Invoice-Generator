@@ -1,5 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../src/db";
+import Work from "./work";
 
 class Invoice extends Model {
   public id!: number;
@@ -11,6 +12,8 @@ class Invoice extends Model {
   public lastName!: string;
 
   public company!: string;
+
+  public works?: Work[];
 }
 
 Invoice.init(
