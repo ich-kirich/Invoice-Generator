@@ -20,6 +20,9 @@ function InformCustomer(props: IPageProps) {
         Customer: {invoice.dataValues.firstName}
       </Typography>
       <Typography variant="h6" component="p">
+        Company of Customer: {invoice.dataValues.company}
+      </Typography>
+      <Typography variant="h6" component="p">
         {invoice.dataValues.email}
       </Typography>
     </Box>

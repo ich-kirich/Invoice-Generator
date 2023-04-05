@@ -1,9 +1,19 @@
 {
-  "port": "PORT",
-  "db_name": "DB_NAME",
-  "db_user": "DB_NAME",
-  "db_host": "DB_HOST",
-  "db_port": "DB_PORT",
-  "base_url": "BASE_URL",
-  "db_password": "DB_PASSWORD"
+  "server": {
+    "port": "PORT"
+  },
+  "database": {
+    "name": "DB_NAME",
+    "user": "DB_NAME",
+    "host": "DB_HOST",
+    "port": "DB_PORT",
+    "password": "DB_PASSWORD"
+  },
+  "email": {
+    "host_name": "EMAIL_HOST_NAME",
+    "host_port": "EMAIL_HOST_PORT",
+    "username": "EMAIL_USERNAME",
+    "password": "EMAIL_USER_PASSWORD"
+  },
+  "base_url": "BASE_URL"
 }

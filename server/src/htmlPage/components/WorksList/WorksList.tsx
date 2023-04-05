@@ -15,7 +15,7 @@ function WorksList(props: IPageProps) {
       }}
     >
       {invoice.dataValues.works.map((item: Work) => (
-        <Box className="cost">
+        <Box className="cost" key={item.dataValues.id}>
           <Typography variant="h6" component="p">
             {upperFirstLetter(item.dataValues.nameWork)}
           </Typography>

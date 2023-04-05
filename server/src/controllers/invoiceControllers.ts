@@ -5,19 +5,20 @@ import { createInfInvoice, createPdf } from "../services/invoiceService";
 import ApiError from "../error/apiError";
 import ERROR_NOT_FOUND from "../libs/constants";
 import Work from "../../models/work";
+import sendEmail from "../services/sendEmails";
 
 class InvoiceControllers {
   async createInvoice(req: Request, res: Response, next: NextFunction) {
     try {
-      const { email, works, firstName, lastName, company } = req.body;
+      const { email, firstName, lastName, company, works } = req.body;
       const checkInvoice = await Invoice.findOne({ where: { email } });
       const invoice = await createInfInvoice(
         checkInvoice,
         email,
-        works,
         firstName,
         lastName,
         company,
+        works,
       );
       return res.json(invoice);
     } catch (e) {
@@ -37,12 +38,8 @@ class InvoiceControllers {
       if (invoice) {
         try {
           const pdfFile = await createPdf(invoice);
-          res.setHeader("Content-Type", "application/pdf");
-          res.setHeader(
-            "Content-Disposition",
-            "attachment; filename=invoice.pdf",
-          );
-          return res.send(pdfFile);
+          await sendEmail(pdfFile, invoice.dataValues.email);
+          return res.json("Email successfully sent");
         } catch (e) {
           return next(new ApiError(StatusCodes.BAD_REQUEST, e.message));
         }
