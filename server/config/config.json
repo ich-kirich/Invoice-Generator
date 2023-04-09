@@ -1,9 +1,0 @@
-{
-  "development": {
-    "username": "postgres",
-    "password": "rootkm",
-    "database": "invoice_generator",
-    "host": "localhost",
-    "dialect": "postgres"
-  }
-}

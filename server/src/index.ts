@@ -16,8 +16,8 @@ app.use(ErrorHandling);
 const startServer = async () => {
   try {
     await initDb();
-    app.listen(config.get("PORT"), () =>
-      console.log(`Running on port ${config.get("PORT")}`),
+    app.listen(config.get("server_port"), () =>
+      console.log(`Running on port ${config.get("server_port")}`),
     );
   } catch (e) {
     console.error(new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, e.message));

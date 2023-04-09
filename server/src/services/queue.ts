@@ -1,10 +1,10 @@
 import { Queue } from "bullmq";
-import { createPdf } from "./invoiceService";
+import config from "config";
 
 const queue = new Queue("Paint", {
   connection: {
-    host: "127.0.0.1",
-    port: 6379,
+    host: config.get("queue_host"),
+    port: config.get("queue_port"),
   },
 });
 

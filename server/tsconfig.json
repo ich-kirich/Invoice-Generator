@@ -9,6 +9,6 @@
     "baseUrl": ".",
     "moduleResolution": "node"
   },
-  "include": ["src", "models/work.ts", "models/initDb.ts", "models/invoice.ts"],
+  "include": ["src", "models"],
   "exclude": ["node_modules"]
 }
