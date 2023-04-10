@@ -1,20 +1,15 @@
 import { NextFunction, Response, Request } from "express";
 import { StatusCodes } from "http-status-codes";
-import { addWorks } from "../services/invoiceService";
+import { addWorks, generateLogs } from "../services/invoiceService";
 import ApiError from "../error/apiError";
 import queue from "../services/queue";
 
 class InvoiceControllers {
   async createInvoice(req: Request, res: Response, next: NextFunction) {
     try {
-      const { email, firstName, lastName, company, works } = req.body;
-      const invoice = await addWorks(
-        email,
-        firstName,
-        lastName,
-        company,
-        works,
-      );
+      const { email, works } = req.body;
+      const log = await generateLogs(email, new Date(Date.now()));
+      const invoice = await addWorks(email, works);
       return res.json(invoice);
     } catch (e) {
       return next(new ApiError(StatusCodes.BAD_REQUEST, e.message));

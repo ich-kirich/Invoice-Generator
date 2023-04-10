@@ -5,7 +5,7 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('invoices', [{
       id: 1,
-      email: 'example@gmail.com',
+      email: 'pogger3000@gmail.com',
       firstName: 'Client',
       lastName: 'Example',
       company: 'Horns and Hooves',

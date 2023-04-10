@@ -5,6 +5,7 @@ import ERROR_NOT_FOUND from "../libs/constants";
 import { IWork } from "../types/types";
 import Invoice from "../../models/invoice";
 import Work from "../../models/work";
+import Logs from "../../models/log";
 import { createPage } from "../htmlPage/htmlPage";
 import sendEmail from "./sendEmails";
 
@@ -27,28 +28,6 @@ async function createInfo(info: IWork[], id: number) {
       console.error(e.message);
     }
   }
-}
-
-async function createInfInvoice(
-  checkInvoice: Invoice,
-  email: string,
-  firstName: string,
-  lastName: string,
-  company: string,
-  works: IWork[],
-) {
-  if (checkInvoice) {
-    return checkInvoice;
-  }
-  const invoice = await Invoice.create({
-    email,
-    firstName,
-    lastName,
-    company,
-  });
-  await invoice.save();
-  await createInfo(works, invoice.dataValues.id);
-  return invoice;
 }
 
 function generatePdfPromise(
@@ -80,23 +59,13 @@ async function createPdf(invoice: Invoice) {
   return generatePdfPromise(htmlFile, options);
 }
 
-export async function addWorks(
-  email: string,
-  firstName: string,
-  lastName: string,
-  company: string,
-  works: IWork[],
-) {
+export async function addWorks(email: string, works: IWork[]) {
   const checkInvoice = await Invoice.findOne({ where: { email } });
-  const invoice = await createInfInvoice(
-    checkInvoice,
-    email,
-    firstName,
-    lastName,
-    company,
-    works,
-  );
-  return invoice;
+  if (checkInvoice) {
+    await createInfo(works, checkInvoice.dataValues.id);
+    return checkInvoice;
+  }
+  return new ApiError(StatusCodes.NOT_FOUND, ERROR_NOT_FOUND);
 }
 
 export async function generateInvoice(email: string) {
@@ -116,4 +85,16 @@ export async function generateInvoice(email: string) {
     }
   }
   return new ApiError(StatusCodes.NOT_FOUND, ERROR_NOT_FOUND);
+}
+
+export async function generateLogs(email: string, date: Date) {
+  try {
+    const log = await Logs.create({ email, date });
+    console.log(log);
+    await log.save();
+    console.log(1);
+    return log;
+  } catch (e) {
+    return new ApiError(StatusCodes.BAD_REQUEST, e.message);
+  }
 }
