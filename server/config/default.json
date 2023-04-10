@@ -1,11 +1,11 @@
 {
   "database": "invoice_generator",
   "username": "postgres",
-  "host": "localhost",
+  "host": "host.docker.internal",
   "port": "5432",
   "dialect": "postgres",
   "base_url": "http://localhost:5000",
   "server_port": "5000",
-  "queue_host": "127.0.0.1",
+  "queue_host": "host.docker.internal",
   "queue_port": 6379
 }

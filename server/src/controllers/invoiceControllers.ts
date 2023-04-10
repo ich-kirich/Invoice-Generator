@@ -1,7 +1,8 @@
 import { NextFunction, Response, Request } from "express";
 import { StatusCodes } from "http-status-codes";
-import { addWorks, generateInvoice } from "../services/invoiceService";
+import { addWorks } from "../services/invoiceService";
 import ApiError from "../error/apiError";
+import queue from "../services/queue";
 
 class InvoiceControllers {
   async createInvoice(req: Request, res: Response, next: NextFunction) {
@@ -23,8 +24,8 @@ class InvoiceControllers {
   async getInvoice(req: Request, res: Response, next: NextFunction) {
     try {
       const { email } = req.body;
-      const result = await generateInvoice(email);
-      return res.json(result);
+      await queue.add("sentPdf", { sent: email });
+      return res.json("Succes Sent");
     } catch (e) {
       return next(new ApiError(StatusCodes.BAD_REQUEST, e.message));
     }

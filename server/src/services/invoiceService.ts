@@ -51,20 +51,33 @@ async function createInfInvoice(
   return invoice;
 }
 
-async function createPdf(invoice: Invoice) {
-  const options = { format: "A4" };
-  const htmlFile = createPage(invoice);
-  const generatePdfPromise = () =>
-    new Promise<Buffer>((resolve, reject) => {
-      htmlPdfNode.generatePdf(htmlFile, options, (err, pdfBuffer) => {
+function generatePdfPromise(
+  htmlFile: {
+    content: string;
+  },
+  options: Object,
+): Promise<Buffer> {
+  return new Promise<Buffer>((resolve, reject) => {
+    htmlPdfNode.generatePdf(
+      htmlFile,
+      options,
+      (err: Error | null, pdfBuffer?: Buffer) => {
         if (err) {
           reject(err);
+        } else if (!pdfBuffer) {
+          reject(new Error("PDF buffer is empty."));
         } else {
           resolve(pdfBuffer);
         }
-      });
-    });
-  return generatePdfPromise();
+      },
+    );
+  });
+}
+
+async function createPdf(invoice: Invoice) {
+  const options = { format: "A4" };
+  const htmlFile = createPage(invoice);
+  return generatePdfPromise(htmlFile, options);
 }
 
 export async function addWorks(
