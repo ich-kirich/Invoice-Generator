@@ -5,7 +5,7 @@ import ApiError from "../error/apiError";
 import queue from "../services/queue";
 
 class InvoiceControllers {
-  async createInvoice(req: Request, res: Response, next: NextFunction) {
+  async createListWorks(req: Request, res: Response, next: NextFunction) {
     try {
       const { email, works } = req.body;
       const log = await generateLogs(email, new Date(Date.now()));

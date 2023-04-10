@@ -2,12 +2,21 @@ import express from "express";
 import cors from "cors";
 import config from "config";
 import { StatusCodes } from "http-status-codes";
+import * as OpenApiValidator from "express-openapi-validator";
+import path from "path";
 import ApiError from "./error/apiError";
 import ErrorHandling from "./middleware/errorhandlingmiddleware";
 import router from "./routes/router";
 import initDb from "../models/initDb";
 
 const app = express();
+app.use(
+  OpenApiValidator.middleware({
+    apiSpec: path.join(__dirname, "openapi.yaml"),
+    validateRequests: true,
+    validateResponses: true,
+  }),
+);
 app.use(cors());
 app.use(express.json());
 app.use("", router);

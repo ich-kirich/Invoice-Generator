@@ -6,6 +6,6 @@
   "dialect": "postgres",
   "base_url": "http://localhost:5000",
   "server_port": "5000",
-  "queue_host": "host.docker.internal",
+  "queue_host": "docker.for.win.localhost",
   "queue_port": 6379
 }
