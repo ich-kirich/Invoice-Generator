@@ -40,6 +40,7 @@
     "typescript": "^5.0.3"
   },
   "dependencies": {
+    "@apideck/reva": "^0.2.1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.11.15",
@@ -68,7 +69,9 @@
     "redis": "^4.6.5",
     "sequelize": "^6.30.0",
     "styled-components": "^5.3.9",
+    "swagger-express-validator": "^1.0.2",
     "swagger-ui-express": "^4.6.2",
+    "yaml": "^2.2.1",
     "yamljs": "^0.3.0"
   }
 }

@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: OpenAPI invoice generator specification
+  title: OpenAPI Invoice generator specification
   version: 0.1.0
 servers:
   - url: http://localhost:5000/
@@ -12,13 +12,19 @@ paths:
       tags:
         - Invoice
       operationId: getInvoice
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addWork'
       responses:
         '200':
           description: Result of Sent Invoice
           content:
             application/json;charset=UTF-8:
               schema:
-                $ref: '#/components/schemas/sentInvoice'
+                $ref: '#/components/schemas/email'
         default:
           description: anything out of the ordinary
           content:
@@ -57,6 +63,14 @@ components:
     email:
       type: string
       example: example@gmail.com
+    addWork:
+      type: object
+      required:
+        - email
+      properties:
+        email:
+          type: string
+          example: example@gmail.com
     listWorks:
       type: object
       required:
