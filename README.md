@@ -8,6 +8,7 @@ It is a system for generating invoices and sending them to the customer
 - npm run dev - start the project in developer mode and start the server
 - docker run -d --name redisd redis - create a docker container for redis
 - docker start redisd - run the created docker container with redis
+- http://localhost:5000/api-docs - request to open swagger ui
 ***
 ## Technology stack
 - ExpressJS, NodeJS, Typescript, Nodemon, PostgreSQL, Sequelize ORM, Docker, Node-config, Eslint, Prettier, Postman, Swagger, React, ReactDOMServer, Material UI, Git, BullMQ, Redis, Nodemailer, Swagger Ui Express, Http Status Codes, Html Pdf Node
