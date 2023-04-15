@@ -5,11 +5,10 @@ import { StatusCodes } from "http-status-codes";
 import path from "path";
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
-import * as OpenApiValidator from "express-openapi-validator";
 import ApiError from "./error/apiError";
-import ErrorHandling from "./middleware/errorhandlingmiddleware";
 import router from "./routes/router";
 import initDb from "../models/initDb";
+import connectMiddlewares from "./libs/utils";
 
 const app = express();
 const openapiJson = YAML.load(
@@ -17,15 +16,9 @@ const openapiJson = YAML.load(
 );
 app.use(express.json());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openapiJson));
-app.use(
-  OpenApiValidator.middleware({
-    apiSpec: path.join(__dirname, "..", "swagger", "openapi.yaml"),
-    validateRequests: true,
-  }),
-);
+connectMiddlewares(app);
 app.use(cors());
 app.use("", router);
-app.use(ErrorHandling);
 
 const startServer = async () => {
   try {
