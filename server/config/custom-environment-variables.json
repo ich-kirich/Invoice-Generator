@@ -1,15 +1,23 @@
 {
-  "port": "server_port",
-  "db_name": "database",
-  "db_user": "username",
-  "db_host": "host",
-  "db_port": "port",
-  "base_url": "base_url",
-  "db_password": "password",
-  "host_name": "EMAIL_HOST_NAME",
-  "host_port": "EMAIL_HOST_PORT",
-  "email_username": "EMAIL_USERNAME",
-  "email_password": "EMAIL_USER_PASSWORD",
-  "queue_hostnumber": "queue_host",
-  "queue_portnumber": "queue_port"
+  "server": {
+    "port": "PORT"
+  },
+  "db": {
+    "database": "DATABASE",
+    "username": "USER",
+    "host": "HOST",
+    "port": "PORT",
+    "dialect": "DIALECT",
+    "password": "PASSWORD"
+  },
+  "queue": {
+    "host": "HOST",
+    "port": "PORT"
+  },
+  "email": {
+    "name": "NAME",
+    "port": "PORT",
+    "username": "USER",
+    "password": "PASSWORD"
+  }
 }

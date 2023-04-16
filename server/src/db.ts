@@ -2,13 +2,13 @@ import config from "config";
 import { Sequelize } from "sequelize";
 
 const sequelize = new Sequelize(
-  String(config.get("database")),
-  String(config.get("username")),
-  String(config.get("password")),
+  String(config.get("db.database")),
+  String(config.get("db.username")),
+  String(config.get("db.password")),
   {
-    dialect: config.get("dialect"),
-    host: String(config.get("host")),
-    port: Number(config.get("port")),
+    dialect: config.get("db.dialect"),
+    host: String(config.get("db.host")),
+    port: Number(config.get("db.port")),
   },
 );
 

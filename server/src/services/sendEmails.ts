@@ -6,12 +6,12 @@ import ApiError from "../error/apiError";
 
 async function sendEmail(pdfFile: Buffer, emailToSend: string) {
   const transporter = nodemailer.createTransport({
-    host: config.get("EMAIL_HOST_NAME"),
-    port: config.get("EMAIL_HOST_PORT"),
+    host: config.get("email.name"),
+    port: config.get("email.port"),
     secure: false,
     auth: {
-      user: config.get("EMAIL_USERNAME"),
-      pass: config.get("EMAIL_USER_PASSWORD"),
+      user: config.get("email.username"),
+      pass: config.get("email.password"),
     },
   });
   const pdfBuffer = Buffer.from(pdfFile);
@@ -20,7 +20,7 @@ async function sendEmail(pdfFile: Buffer, emailToSend: string) {
   pdfStream.push(null);
   try {
     const info = await transporter.sendMail({
-      from: config.get("EMAIL_USERNAME"),
+      from: config.get("email.username"),
       to: emailToSend,
       subject: "Invoice",
       attachments: [

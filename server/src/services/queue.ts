@@ -5,15 +5,15 @@ import sendEmail from "./sendEmails";
 
 const queuePdf = new Queue("generate-pdf", {
   connection: {
-    host: config.get("queue_host"),
-    port: config.get("queue_port"),
+    host: config.get("queue.host"),
+    port: config.get("queue.port"),
   },
 });
 
 const queueEmal = new Queue("sent-email", {
   connection: {
-    host: config.get("queue_host"),
-    port: config.get("queue_port"),
+    host: config.get("queue.host"),
+    port: config.get("queue.port"),
   },
 });
 
@@ -25,8 +25,8 @@ const generatePDFWorker = new Worker(
   },
   {
     connection: {
-      host: config.get("queue_host"),
-      port: config.get("queue_port"),
+      host: config.get("queue.host"),
+      port: config.get("queue.port"),
     },
   },
 );
@@ -38,8 +38,8 @@ const sentEmailWorker = new Worker(
   },
   {
     connection: {
-      host: config.get("queue_host"),
-      port: config.get("queue_port"),
+      host: config.get("queue.host"),
+      port: config.get("queue.port"),
     },
   },
 );

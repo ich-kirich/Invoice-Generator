@@ -1,11 +1,16 @@
 {
-  "database": "invoice_generator",
-  "username": "postgres",
-  "host": "kubernetes.docker.internal",
-  "port": "5432",
-  "dialect": "postgres",
-  "base_url": "http://localhost:5000",
-  "server_port": "5000",
-  "queue_host": "kubernetes.docker.internal",
-  "queue_port": 6379
+  "server": {
+    "port": 5000
+  },
+  "db": {
+    "database": "invoice_generator",
+    "username": "postgres",
+    "host": "kubernetes.docker.internal",
+    "port": "5432",
+    "dialect": "postgres"
+  },
+  "queue": {
+    "host": "kubernetes.docker.internal",
+    "port": 6379
+  }
 }

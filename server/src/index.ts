@@ -23,8 +23,8 @@ app.use("", router);
 const startServer = async () => {
   try {
     await initDb();
-    app.listen(config.get("server_port"), () =>
-      console.log(`Running on port ${config.get("server_port")}`),
+    app.listen(config.get("server.port"), () =>
+      console.log(`Running on port ${config.get("server.port")}`),
     );
   } catch (e) {
     console.error(new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, e.message));
