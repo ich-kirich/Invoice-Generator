@@ -1,8 +1,16 @@
 import { Queue, Worker } from "bullmq";
 import config from "config";
-import { generateInvoice } from "./invoiceService";
+import { generatePdfClient } from "./invoiceService";
+import sendEmail from "./sendEmails";
 
-const queue = new Queue("sent", {
+const queuePdf = new Queue("generate-pdf", {
+  connection: {
+    host: config.get("queue_host"),
+    port: config.get("queue_port"),
+  },
+});
+
+const queueEmal = new Queue("sent-email", {
   connection: {
     host: config.get("queue_host"),
     port: config.get("queue_port"),
@@ -10,9 +18,10 @@ const queue = new Queue("sent", {
 });
 
 const generatePDFWorker = new Worker(
-  "sent",
+  "generate-pdf",
   async (job) => {
-    await generateInvoice(job.data.sent);
+    const pdfFile = await generatePdfClient(job.data.sent);
+    await queueEmal.add("sent-email", { pdfFile, email: job.data });
   },
   {
     connection: {
@@ -22,4 +31,17 @@ const generatePDFWorker = new Worker(
   },
 );
 
-export default queue;
+const sentEmailWorker = new Worker(
+  "sent-email",
+  async (job) => {
+    await sendEmail(job.data.pdfFile, job.data.email.sent);
+  },
+  {
+    connection: {
+      host: config.get("queue_host"),
+      port: config.get("queue_port"),
+    },
+  },
+);
+
+export default queuePdf;

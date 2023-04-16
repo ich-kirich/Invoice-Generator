@@ -2,7 +2,7 @@ import { NextFunction, Response, Request } from "express";
 import { StatusCodes } from "http-status-codes";
 import { addWorks, generateLogs } from "../services/invoiceService";
 import ApiError from "../error/apiError";
-import queue from "../services/queue";
+import queuePdf from "../services/queue";
 
 class InvoiceControllers {
   async createListWorks(req: Request, res: Response, next: NextFunction) {
@@ -19,7 +19,7 @@ class InvoiceControllers {
   async getInvoice(req: Request, res: Response, next: NextFunction) {
     try {
       const { email } = req.body;
-      await queue.add("sentPdf", { sent: email });
+      await queuePdf.add("generate-pdf", { sent: email });
       return res.json("Succes Sent");
     } catch (e) {
       return next(new ApiError(StatusCodes.BAD_REQUEST, e.message));

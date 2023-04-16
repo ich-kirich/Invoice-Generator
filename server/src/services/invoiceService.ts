@@ -68,7 +68,7 @@ export async function addWorks(email: string, works: IWork[]) {
   return new ApiError(StatusCodes.NOT_FOUND, ERROR_NOT_FOUND);
 }
 
-export async function generateInvoice(email: string) {
+export async function generatePdfClient(email: string) {
   const invoice = await Invoice.findOne({
     where: {
       email,
@@ -78,8 +78,7 @@ export async function generateInvoice(email: string) {
   if (invoice) {
     try {
       const pdfFile = await createPdf(invoice);
-      await sendEmail(pdfFile, invoice.dataValues.email);
-      return "Email successfully sent";
+      return pdfFile;
     } catch (e) {
       return new ApiError(StatusCodes.BAD_REQUEST, e.message);
     }
@@ -90,9 +89,7 @@ export async function generateInvoice(email: string) {
 export async function generateLogs(email: string, date: Date) {
   try {
     const log = await Logs.create({ email, date });
-    console.log(log);
     await log.save();
-    console.log(1);
     return log;
   } catch (e) {
     return new ApiError(StatusCodes.BAD_REQUEST, e.message);
