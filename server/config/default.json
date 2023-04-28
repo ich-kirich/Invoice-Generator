@@ -1,0 +1,16 @@
+{
+  "server": {
+    "port": 5000
+  },
+  "db": {
+    "database": "invoice_generator",
+    "username": "postgres",
+    "host": "kubernetes.docker.internal",
+    "port": "5432",
+    "dialect": "postgres"
+  },
+  "queue": {
+    "host": "kubernetes.docker.internal",
+    "port": 6379
+  }
+}

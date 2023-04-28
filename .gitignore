@@ -1,0 +1,4 @@
+server/dist
+server/config/local.json
+server/node_modules
+server/docker-compose.yml

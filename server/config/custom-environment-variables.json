@@ -1,0 +1,23 @@
+{
+  "server": {
+    "port": "PORT"
+  },
+  "db": {
+    "database": "DATABASE",
+    "username": "USER",
+    "host": "HOST",
+    "port": "PORT",
+    "dialect": "DIALECT",
+    "password": "PASSWORD"
+  },
+  "queue": {
+    "host": "HOST",
+    "port": "PORT"
+  },
+  "email": {
+    "name": "NAME",
+    "port": "PORT",
+    "username": "USER",
+    "password": "PASSWORD"
+  }
+}

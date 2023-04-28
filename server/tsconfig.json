@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "target": "esnext",
+    "module": "commonjs",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "baseUrl": ".",
+    "moduleResolution": "node"
+  },
+  "include": ["src", "models"],
+  "exclude": ["node_modules"]
+}

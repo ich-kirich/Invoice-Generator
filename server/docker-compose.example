@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  invoice_generator_db:
+    container_name: invoice_generator_db
+    image: "postgres:12"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=
+      - POSTGRES_PASSWORD=
+      - POSTGRES_DB=
+    volumes:
+      - invoice_generator_db_data:/var/lib/postgresql/data
+volumes:
+  invoice_generator_db_data: {}
